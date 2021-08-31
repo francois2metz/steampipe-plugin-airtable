@@ -6,8 +6,8 @@ import (
 )
 
 type airtableConfig struct {
-	Token       *string   `cty:"token"`
-	DatabaseID  *string   `cty:"databaseid"`
+	Token      *string `cty:"token"`
+	DatabaseID *string `cty:"databaseid"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{

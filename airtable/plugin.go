@@ -10,9 +10,9 @@ import (
 
 func Plugin(ctx context.Context) *plugin.Plugin {
 	tableMap := map[string]*plugin.Table{}
-	tableAirtable := []string{"Domaines", "Competences", "Acquis", "Epreuves"}
+	tableAirtable := []string{"Domaines", "Competences", "Acquis", "Epreuves", "Tubes"}
 	for _, table := range tableAirtable {
-		tableMap["airtable_" + strings.ToLower(table)] = tableAirtableTable(table)
+		tableMap["airtable_"+strings.ToLower(table)] = tableAirtableTable(table)
 	}
 	p := &plugin.Plugin{
 		Name:             "steampipe-plugin-airtable",

@@ -16,8 +16,8 @@ func tableAirtableTable(tableName string) *plugin.Table {
 			Hydrate: listTable(tableName),
 		},
 		Columns: []*plugin.Column{
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "the record ID"},
-			{Name: "fields", Type: proto.ColumnType_JSON, Description: "fields of the table"},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID."},
+			{Name: "fields", Type: proto.ColumnType_JSON, Description: "The gields of the table."},
 		},
 	}
 }

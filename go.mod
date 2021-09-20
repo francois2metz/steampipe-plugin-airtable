@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/mehanizm/airtable v0.2.4
-	github.com/turbot/steampipe-plugin-sdk v1.5.0
+	github.com/turbot/steampipe-plugin-sdk v1.5.1-0.20210920161223-e55eb29d4464
 )
 
 require (

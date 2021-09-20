@@ -2,7 +2,6 @@ package airtable
 
 import (
 	"context"
-	"strings"
 
 	"github.com/turbot/steampipe-plugin-sdk/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/plugin"
@@ -10,7 +9,7 @@ import (
 
 func tableAirtableTable(tableName string) *plugin.Table {
 	return &plugin.Table{
-		Name:        "airtable_" + strings.ToLower(tableName),
+		Name:        "airtable_" + toTableName(tableName),
 		Description: "Table " + tableName,
 		List: &plugin.ListConfig{
 			Hydrate: listTable(tableName),

@@ -2,7 +2,6 @@ package airtable
 
 import (
 	"context"
-	"strings"
 
 	"github.com/turbot/steampipe-plugin-sdk/plugin"
 	"github.com/turbot/steampipe-plugin-sdk/plugin/transform"
@@ -28,7 +27,7 @@ func PluginTables(p *plugin.Plugin) (map[string]*plugin.Table, error) {
 	tableMap := map[string]*plugin.Table{}
 
 	for _, table := range airtableConfig.Tables {
-		tableMap["airtable_"+strings.ToLower(table)] = tableAirtableTable(table)
+		tableMap["airtable_"+ toTableName(table)] = tableAirtableTable(table)
 	}
 
 	return tableMap, nil

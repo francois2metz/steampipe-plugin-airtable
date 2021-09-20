@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 
+	"github.com/iancoleman/strcase"
 	"github.com/mehanizm/airtable"
 	"github.com/turbot/steampipe-plugin-sdk/plugin"
 )
@@ -43,4 +44,8 @@ func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error)
 	d.ConnectionManager.Cache.Set(cacheKey, client)
 
 	return client, nil
+}
+
+func toTableName(rawTableName string) string {
+	return strcase.ToSnake(rawTableName)
 }

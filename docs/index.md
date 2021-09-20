@@ -56,7 +56,7 @@ Installing the latest airtable plugin will create a config file (`~/.steampipe/c
 connection "airtable" {
   plugin = "francois2metz/airtable"
 
-  # API token
+  # API token (get it on https://airtable.com/account)
   token = "YOUR_AIRTABLE_TOKEN"
 
   # Database ID

@@ -9,14 +9,14 @@ import (
 
 func tableAirtableTable(tableName string) *plugin.Table {
 	return &plugin.Table{
-		Name:        "airtable_" + toTableName(tableName),
-		Description: "Table " + tableName,
+		Name:        toTableName(tableName),
+		Description: "The " + tableName + " table.",
 		List: &plugin.ListConfig{
 			Hydrate: listTable(tableName),
 		},
 		Columns: []*plugin.Column{
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID."},
-			{Name: "fields", Type: proto.ColumnType_JSON, Description: "The gields of the table."},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID of the row."},
+			{Name: "fields", Type: proto.ColumnType_JSON, Description: "The fields of the row."},
 		},
 	}
 }

@@ -2,6 +2,9 @@
 
 Use SQL to query your [Airtable][] tables.
 
+- **[Get started →](docs/index.md)**
+- Documentation: [Table definitions & examples](docs/tables)
+
 ## Quick start
 
 Install the plugin with [Steampipe][]:

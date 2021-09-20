@@ -6,4 +6,7 @@ connection "airtable" {
 
     # Database ID
     databaseid = "YOUR_DATABASE_ID"
+
+    # Tables to expose
+    tables = []
 }

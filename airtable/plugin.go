@@ -9,11 +9,6 @@ import (
 )
 
 func Plugin(ctx context.Context) *plugin.Plugin {
-	tableMap := map[string]*plugin.Table{}
-	tableAirtable := []string{"Domaines", "Competences", "Acquis", "Epreuves", "Tubes"}
-	for _, table := range tableAirtable {
-		tableMap["airtable_"+strings.ToLower(table)] = tableAirtableTable(table)
-	}
 	p := &plugin.Plugin{
 		Name:             "steampipe-plugin-airtable",
 		DefaultTransform: transform.FromGo(),
@@ -21,8 +16,20 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			NewInstance: ConfigInstance,
 			Schema:      ConfigSchema,
 		},
-		TableMap: tableMap,
+		TableMapFunc: PluginTables,
 	}
 
 	return p
+}
+
+func PluginTables(p *plugin.Plugin) (map[string]*plugin.Table, error) {
+	airtableConfig := GetConfig(p.Connection)
+
+	tableMap := map[string]*plugin.Table{}
+
+	for _, table := range airtableConfig.Tables {
+		tableMap["airtable_"+strings.ToLower(table)] = tableAirtableTable(table)
+	}
+
+	return tableMap, nil
 }

@@ -3,8 +3,9 @@ module github.com/francois2metz/steampipe-plugin-airtable
 go 1.17
 
 require (
+	github.com/iancoleman/strcase v0.2.0
 	github.com/mehanizm/airtable v0.2.4
-	github.com/turbot/steampipe-plugin-sdk v1.5.1-0.20210920161223-e55eb29d4464
+	github.com/turbot/steampipe-plugin-sdk v1.6.1
 )
 
 require (
@@ -23,7 +24,6 @@ require (
 	github.com/hashicorp/go-version v1.3.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.9.1 // indirect
 	github.com/hashicorp/yamux v0.0.0-20180604194846-3520598351bb // indirect
-	github.com/iancoleman/strcase v0.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.4 // indirect
 	github.com/mattn/go-isatty v0.0.10 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect

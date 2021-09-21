@@ -21,7 +21,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 	return p
 }
 
-func PluginTables(p *plugin.Plugin) (map[string]*plugin.Table, error) {
+func PluginTables(ctx context.Context, p *plugin.Plugin) (map[string]*plugin.Table, error) {
 	airtableConfig := GetConfig(p.Connection)
 
 	tableMap := map[string]*plugin.Table{}

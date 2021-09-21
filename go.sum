@@ -73,7 +73,6 @@ github.com/hashicorp/hcl/v2 v2.9.1 h1:eOy4gREY0/ZQHNItlfuEZqtcQbXIxzojlP301hDpna
 github.com/hashicorp/hcl/v2 v2.9.1/go.mod h1:FwWsfWEjyV/CMj8s/gqAuiviY72rJ1/oayI9WftqcKg=
 github.com/hashicorp/yamux v0.0.0-20180604194846-3520598351bb h1:b5rjCoWHc7eqmAS4/qyk21ZsHyb6Mxv/jykxvNTkU4M=
 github.com/hashicorp/yamux v0.0.0-20180604194846-3520598351bb/go.mod h1:+NfK9FKeTrX5uv1uIXGdwYDTeHna2qgaIlx54MXqjAM=
-github.com/iancoleman/strcase v0.1.2 h1:gnomlvw9tnV3ITTAxzKSgTF+8kFWcU/f+TgttpXGz1U=
 github.com/iancoleman/strcase v0.1.2/go.mod h1:SK73tn/9oHe+/Y0h39VT4UCxmurVJkR5NA7kMEAOgSE=
 github.com/iancoleman/strcase v0.2.0 h1:05I4QRnGpI0m37iZQRuskXh+w77mr6Z41lwQzuHLwW0=
 github.com/iancoleman/strcase v0.2.0/go.mod h1:iwCmte+B7n89clKwxIoIXy/HfoL7AsD47ZCWhYzw7ho=
@@ -130,8 +129,8 @@ github.com/tkrajina/go-reflector v0.5.4 h1:dS9aJEa/eYNQU/fwsb5CSiATOxcNyA/gG/A7a
 github.com/tkrajina/go-reflector v0.5.4/go.mod h1:9PyLgEOzc78ey/JmQQHbW8cQJ1oucLlNQsg8yFvkVk8=
 github.com/turbot/go-kit v0.2.2-0.20210628165333-268ba0a30be3 h1:UAfWYp+K7oESlqomRus4k+h/dSPXU17tEcarbRdtBwQ=
 github.com/turbot/go-kit v0.2.2-0.20210628165333-268ba0a30be3/go.mod h1:SBdPRngbEfYubiR81iAVtO43oPkg1+ASr+XxvgbH7/k=
-github.com/turbot/steampipe-plugin-sdk v1.5.1-0.20210920161223-e55eb29d4464 h1:255K1NHl6pUpY2IWKlHH/o8s8VUhqXIRDXIuk8//7Lc=
-github.com/turbot/steampipe-plugin-sdk v1.5.1-0.20210920161223-e55eb29d4464/go.mod h1:zM68yGM+wjkjDPz8yUTx6078GDTVWkrI26EC56XIspw=
+github.com/turbot/steampipe-plugin-sdk v1.6.1 h1:zXs0jiGyYc0vq3YwPDtw78jCZbirjSPEeTcZEDvoPJk=
+github.com/turbot/steampipe-plugin-sdk v1.6.1/go.mod h1:zM68yGM+wjkjDPz8yUTx6078GDTVWkrI26EC56XIspw=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
 github.com/vmihailenco/msgpack/v4 v4.3.12/go.mod h1:gborTTJjAo/GWTqqRjrLCn9pgNN+NXzzngzBKDPIqw4=
 github.com/vmihailenco/tagparser v0.1.1/go.mod h1:OeAg3pn3UbLjkWt+rN9oFYB6u/cQgqMEUPoW2WPyhdI=

@@ -19,7 +19,7 @@ builds:
       - goos: darwin # docs suggest that darwin arm64 should compile, but doesnt...
         goarch: arm64
 
-    id: "steampipe-scalingo"
+    id: "steampipe-airtable"
     binary: "{{ .ProjectName }}.plugin"
 
 archives:

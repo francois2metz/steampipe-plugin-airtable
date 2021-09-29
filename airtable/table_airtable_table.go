@@ -43,6 +43,9 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 			for _, record := range records.Records {
 				d.StreamListItem(ctx, record)
 			}
+			if d.QueryStatus.RowsRemaining(ctx) <= 0 {
+				break
+			}
 			offset = records.Offset
 			if offset == "" {
 				break

@@ -14,6 +14,10 @@ func tableAirtableTable(tableName string) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: listTable(tableName),
 		},
+		Get: &plugin.GetConfig{
+			KeyColumns: plugin.SingleColumn("id"),
+			Hydrate:    getTable(tableName),
+		},
 		Columns: []*plugin.Column{
 			{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID of the row."},
 			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the record was created."},
@@ -45,5 +49,23 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 			}
 		}
 		return nil, nil
+	}
+}
+
+func getTable(tableName string) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+	return func(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+		client, err := connect(ctx, d)
+		airtableConfig := GetConfig(d.Connection)
+		table := client.GetTable(*airtableConfig.DatabaseID, tableName)
+		if err != nil {
+			return nil, err
+		}
+		quals := d.KeyColumnQuals
+		id := quals["id"].GetStringValue()
+		record, err := table.GetRecord(id)
+		if err != nil {
+			return nil, err
+		}
+		return record, nil
 	}
 }

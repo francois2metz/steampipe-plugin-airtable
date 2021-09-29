@@ -16,6 +16,7 @@ func tableAirtableTable(tableName string) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID of the row."},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the record was created."},
 			{Name: "fields", Type: proto.ColumnType_JSON, Description: "The fields of the row."},
 		},
 	}

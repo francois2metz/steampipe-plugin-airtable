@@ -8,5 +8,6 @@ connection "airtable" {
     databaseid = "YOUR_DATABASE_ID"
 
     # Tables to expose
+    # For instance: ["Design Projects", "Tasks", "Client"]
     tables = []
 }

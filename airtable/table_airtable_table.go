@@ -13,7 +13,7 @@ func tableAirtableTable(tableName string) *plugin.Table {
 		Name:        toTableName(tableName),
 		Description: "The " + tableName + " table.",
 		List: &plugin.ListConfig{
-			Hydrate: listTable(tableName),
+			Hydrate:    listTable(tableName),
 			KeyColumns: plugin.OptionalColumns([]string{"query"}),
 		},
 		Get: &plugin.GetConfig{

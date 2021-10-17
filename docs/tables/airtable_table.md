@@ -37,7 +37,7 @@ from
 order by
   created_time desc
 limit
-  5
+  5;
 ```
 
 ### Join 2 tables
@@ -51,5 +51,5 @@ from
 cross join lateral
   jsonb_array_elements(d.fields->'Client') j(client)
 join
-  airtable_clients c on c.id = j.client#>>'{}'
+  airtable_clients c on c.id = j.client#>>'{}';
 ```

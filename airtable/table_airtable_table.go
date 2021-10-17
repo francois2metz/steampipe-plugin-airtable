@@ -39,13 +39,21 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 		table := client.GetTable(*airtableConfig.DatabaseID, tableName)
 		offset := ""
 		queryFilter := ""
+		maxResult := int64(100)
+		limit := d.QueryContext.Limit
+
+		if d.QueryContext.Limit != nil {
+			if *limit < maxResult {
+				maxResult = *limit
+			}
+		}
 
 		if d.KeyColumnQuals["query"] != nil {
 			queryFilter = d.KeyColumnQuals["query"].GetStringValue()
 		}
 
 		for {
-			records, err := table.GetRecords().WithFilterFormula(queryFilter).WithOffset(offset).Do()
+			records, err := table.GetRecords().WithFilterFormula(queryFilter).WithOffset(offset).MaxRecords(int(maxResult)).Do()
 			if err != nil {
 				if is404Error(err) {
 					return nil, nil

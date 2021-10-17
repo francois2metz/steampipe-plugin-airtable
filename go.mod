@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/iancoleman/strcase v0.2.0
 	github.com/mehanizm/airtable v0.2.4
-	github.com/turbot/steampipe-plugin-sdk v1.6.1
+	github.com/turbot/steampipe-plugin-sdk v1.6.2
 )
 
 require (
@@ -35,7 +35,7 @@ require (
 	github.com/sethvargo/go-retry v0.1.0 // indirect
 	github.com/stevenle/topsort v0.0.0-20130922064739-8130c1d7596b // indirect
 	github.com/tkrajina/go-reflector v0.5.4 // indirect
-	github.com/turbot/go-kit v0.2.2-0.20210628165333-268ba0a30be3 // indirect
+	github.com/turbot/go-kit v0.3.0 // indirect
 	github.com/zclconf/go-cty v1.8.2 // indirect
 	golang.org/x/net v0.0.0-20201029221708-28c70e62bb1d // indirect
 	golang.org/x/sys v0.0.0-20201029080932-201ba4db2418 // indirect

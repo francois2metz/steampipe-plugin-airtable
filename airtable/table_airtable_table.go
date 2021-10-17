@@ -38,6 +38,9 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 		for {
 			records, err := table.GetRecords().WithOffset(offset).Do()
 			if err != nil {
+				if is404Error(err) {
+					return nil, nil
+				}
 				return nil, err
 			}
 			for _, record := range records.Records {
@@ -67,6 +70,9 @@ func getTable(tableName string) func(ctx context.Context, d *plugin.QueryData, _
 		id := quals["id"].GetStringValue()
 		record, err := table.GetRecord(id)
 		if err != nil {
+			if is404Error(err) {
+				return nil, nil
+			}
 			return nil, err
 		}
 		return record, nil

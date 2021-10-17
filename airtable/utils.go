@@ -23,19 +23,19 @@ func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error)
 	}
 
 	token := ""
-	databaseid := ""
+	database_id := ""
 
 	if airtableConfig.Token != nil {
 		token = *airtableConfig.Token
 	}
 	if airtableConfig.DatabaseID != nil {
-		databaseid = *airtableConfig.DatabaseID
+		database_id = *airtableConfig.DatabaseID
 	}
 	if token == "" {
 		return nil, errors.New("'token' must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
 	}
-	if databaseid == "" {
-		return nil, errors.New("'databaseid' must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
+	if database_id == "" {
+		return nil, errors.New("'database_id' must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
 	}
 
 	client := airtable.NewClient(token)

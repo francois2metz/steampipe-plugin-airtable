@@ -3,7 +3,6 @@ package airtable
 import (
 	"context"
 	"errors"
-	"net/http"
 
 	"github.com/iancoleman/strcase"
 	"github.com/mehanizm/airtable"
@@ -45,22 +44,6 @@ func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error)
 	d.ConnectionManager.Cache.Set(cacheKey, client)
 
 	return client, nil
-}
-
-func is404Error(err error) bool {
-	return isHTTPCodeError(err, http.StatusNotFound)
-}
-
-func isHTTPCodeError(err error, statusCode int) bool {
-	if err == nil {
-		return false
-	}
-
-	responseError := &airtable.HTTPClientError{}
-	if errors.As(err, &responseError) && responseError.StatusCode == statusCode {
-		return true
-	}
-	return false
 }
 
 func toTableName(rawTableName string) string {

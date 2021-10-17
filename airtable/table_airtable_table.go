@@ -13,12 +13,14 @@ func tableAirtableTable(tableName string) *plugin.Table {
 		Name:        toTableName(tableName),
 		Description: "The " + tableName + " table.",
 		List: &plugin.ListConfig{
-			Hydrate:    listTable(tableName),
-			KeyColumns: plugin.OptionalColumns([]string{"query"}),
+			Hydrate:           listTable(tableName),
+			KeyColumns:        plugin.OptionalColumns([]string{"query"}),
+			ShouldIgnoreError: isNotFoundError,
 		},
 		Get: &plugin.GetConfig{
-			KeyColumns: plugin.SingleColumn("id"),
-			Hydrate:    getTable(tableName),
+			KeyColumns:        plugin.SingleColumn("id"),
+			Hydrate:           getTable(tableName),
+			ShouldIgnoreError: isNotFoundError,
 		},
 		Columns: []*plugin.Column{
 			{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID of the row."},
@@ -55,9 +57,6 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 		for {
 			records, err := table.GetRecords().WithFilterFormula(queryFilter).WithOffset(offset).MaxRecords(int(maxResult)).Do()
 			if err != nil {
-				if is404Error(err) {
-					return nil, nil
-				}
 				return nil, err
 			}
 			for _, record := range records.Records {
@@ -87,9 +86,6 @@ func getTable(tableName string) func(ctx context.Context, d *plugin.QueryData, _
 		id := quals["id"].GetStringValue()
 		record, err := table.GetRecord(id)
 		if err != nil {
-			if is404Error(err) {
-				return nil, nil
-			}
 			return nil, err
 		}
 		return record, nil

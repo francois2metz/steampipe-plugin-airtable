@@ -47,5 +47,5 @@ func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error)
 }
 
 func toTableName(rawTableName string) string {
-	return "airtable_" + strcase.ToSnake(rawTableName)
+	return strcase.ToSnake(rawTableName)
 }

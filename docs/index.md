@@ -23,7 +23,7 @@ select
   id,
   fields->'Name' as name
 from
-  airtable_design_projects
+  design_projects
 ```
 
 ```

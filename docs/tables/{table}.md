@@ -1,8 +1,12 @@
-# Table: airtable_{table}
+# Table: {table}
 
-The `airtable_{table}` table can be used to query your Airtable table.
+The `{table}` table can be used to query your Airtable table. A table is automatically created to represent each configured `tables`.
 
-A table is automatically created to represent each configured `tables`.
+For instance, if `tables` is set to `["Design Projects", "Tasks", "Clients"]`, then this plugin will create 3 tables:
+
+- design_projects
+- tasks
+- clients
 
 ## Examples
 
@@ -12,7 +16,7 @@ A table is automatically created to represent each configured `tables`.
 select
   id
 from
-  airtable_design_projects;
+  design_projects;
 ```
 
 ### Get a record by id
@@ -22,7 +26,7 @@ select
   created_time,
   fields
 from
-  airtable_design_projects
+  design_projects
 where
   id='recdTpx4c0kPPDTtf';
 ```
@@ -33,7 +37,7 @@ where
 select
   id
 from
-  airtable_design_projects
+  design_projects
 order by
   created_time desc
 limit
@@ -47,9 +51,9 @@ select
   d.fields->'Name' as name,
   c.fields->'Name' as client_name
 from
-  airtable_design_projects d
+  design_projects d
 cross join lateral
   jsonb_array_elements(d.fields->'Client') j(client)
 join
-  airtable_clients c on c.id = j.client#>>'{}';
+  clients c on c.id = j.client#>>'{}';
 ```

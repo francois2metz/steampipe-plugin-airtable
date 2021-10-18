@@ -7,6 +7,7 @@ short_name: "Airtable"
 description: "Steampipe plugin for querying airtable."
 og_description: "Query Airtable with SQL! Open source CLI. No DB required."
 icon_url: "/images/plugins/francois2metz/airtable.svg"
+og_image: "/images/plugins/francois2metz/airtable-social-graphic.png"
 ---
 
 # Airtable + Steampipe

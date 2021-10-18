@@ -1,3 +1,9 @@
+## v0.0.5 [2021-10-18]
+
+_What's new?_
+
+- **Breaking change**: the `airtable_` prefix on tables has been dropped
+
 ## v0.0.4 [2021-10-18]
 
 _What's new?_

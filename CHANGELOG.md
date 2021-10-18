@@ -1,3 +1,11 @@
+## v0.0.4 [2021-10-18]
+
+_What's new?_
+
+- Update sdk to 1.7.0
+- Set the schema mode to dynamic
+- Update doc
+
 ## v0.0.3 [2021-10-17]
 
 _What's new?_

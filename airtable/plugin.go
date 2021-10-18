@@ -15,6 +15,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			NewInstance: ConfigInstance,
 			Schema:      ConfigSchema,
 		},
+		SchemaMode:   plugin.SchemaModeDynamic,
 		TableMapFunc: PluginTables,
 	}
 

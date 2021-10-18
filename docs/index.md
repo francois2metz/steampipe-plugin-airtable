@@ -1,7 +1,7 @@
 ---
 organization: francois2metz
 category: ["saas"]
-brand_color: "#f82b60"
+brand_color: "#18BFFF"
 display_name: "Airtable"
 short_name: "Airtable"
 description: "Steampipe plugin for querying airtable."

@@ -14,7 +14,7 @@ func tableAirtableTable(tableName string) *plugin.Table {
 		Description: "The " + tableName + " table.",
 		List: &plugin.ListConfig{
 			Hydrate:           listTable(tableName),
-			KeyColumns:        plugin.OptionalColumns([]string{"query"}),
+			KeyColumns:        plugin.OptionalColumns([]string{"filter_formula"}),
 			ShouldIgnoreError: isNotFoundError,
 		},
 		Get: &plugin.GetConfig{
@@ -26,7 +26,7 @@ func tableAirtableTable(tableName string) *plugin.Table {
 			{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID of the row."},
 			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the record was created."},
 			{Name: "fields", Type: proto.ColumnType_JSON, Description: "The fields of the row."},
-			{Name: "query", Type: proto.ColumnType_STRING, Description: "Filter string to [filterWithFormula](https://support.airtable.com/hc/en-us/articles/203255215).", Transform: transform.FromQual("query")},
+			{Name: "filter_formula", Type: proto.ColumnType_STRING, Description: "The formula used to filter records. For more information see https://support.airtable.com/hc/en-us/articles/203255215.", Transform: transform.FromQual("filter_formula")},
 		},
 	}
 }
@@ -40,7 +40,7 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 		airtableConfig := GetConfig(d.Connection)
 		table := client.GetTable(*airtableConfig.DatabaseID, tableName)
 		offset := ""
-		queryFilter := ""
+		filterFormula := ""
 		maxResult := int64(100)
 		limit := d.QueryContext.Limit
 
@@ -50,12 +50,12 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 			}
 		}
 
-		if d.KeyColumnQuals["query"] != nil {
-			queryFilter = d.KeyColumnQuals["query"].GetStringValue()
+		if d.KeyColumnQuals["filter_formula"] != nil {
+			filterFormula = d.KeyColumnQuals["filter_formula"].GetStringValue()
 		}
 
 		for {
-			records, err := table.GetRecords().WithFilterFormula(queryFilter).WithOffset(offset).MaxRecords(int(maxResult)).Do()
+			records, err := table.GetRecords().WithFilterFormula(filterFormula).WithOffset(offset).MaxRecords(int(maxResult)).Do()
 			if err != nil {
 				return nil, err
 			}

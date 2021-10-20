@@ -44,32 +44,42 @@ limit
   5;
 ```
 
-### Join 2 tables
+### Expand `Client` field to list clients associated with projects
 
 ```sql
 select
-  d.fields->'Name' as name,
-  c.fields->'Name' as client_name
+  d.id as project_id,
+  cid as client_id
 from
-  design_projects d
-cross join lateral
-  jsonb_array_elements(d.fields->'Client') j(client)
-join
-  clients c on c.id = j.client#>>'{}';
+  design_projects as d,
+  jsonb_array_elements_text(d.fields -> 'Client') as cid;
 ```
 
-### Expand JSON field data and join with another table
+### Get full information for each client associated with a project
 
 ```sql
 select
-  bi.id as bug_id,
-  tm.id as team_member_id,
-  tm.fields ->> 'Name' as assigned_to,
-  bi.fields ->> 'Description' as description
+  d.id as project_id,
+  c.id as client_id,
+  d.fields ->> 'Name' as project_name,
+  c.fields ->> 'Name' as client_name,
+  c.fields ->> 'About' as client_description
 from
-  bugs_and_issues as bi,
-  jsonb_array_elements_text(fields -> 'Assigned to') as a,
-  team_members as tm
-order by
-  bug_id;
+  design_projects as d,
+  jsonb_array_elements_text(d.fields -> 'Client') as cid,
+  clients as c
+where
+  c.id = cid;
+```
+
+### List projects using the [formula filter](https://support.airtable.com/hc/en-us/articles/223247187-How-do-I-sort-filter-or-retrieve-ordered-records-in-the-API-)
+
+```sql
+select
+  fields ->> 'Name' as name,
+  fields ->> 'Kickoff date' as kickoff_date
+from
+  design_projects
+where
+  filter_formula = 'IS_AFTER({Kickoff date}, "2020-10-01")';
 ```

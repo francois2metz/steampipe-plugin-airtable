@@ -1,6 +1,6 @@
 # Table: {airtable_table}
 
-The `{airtable_table}` table can be used to query your Airtable table. A table is automatically created to represent each configured `tables`.
+Query data from Airtable tables. A table is automatically created to represent each Airtable table found in the configured `tables`.
 
 For instance, if `tables` is set to `["Design Projects", "Tasks", "Clients"]`, then this plugin will create 3 tables:
 
@@ -10,7 +10,7 @@ For instance, if `tables` is set to `["Design Projects", "Tasks", "Clients"]`, t
 
 ## Examples
 
-### Get all ids
+### Get all IDs
 
 ```sql
 select
@@ -19,7 +19,7 @@ from
   design_projects;
 ```
 
-### Get a record by id
+### Get a record by ID
 
 ```sql
 select
@@ -28,7 +28,7 @@ select
 from
   design_projects
 where
-  id='recdTpx4c0kPPDTtf';
+  id = 'recdTpx4c0kPPDTtf';
 ```
 
 ### Get the 5 last created rows
@@ -56,4 +56,20 @@ cross join lateral
   jsonb_array_elements(d.fields->'Client') j(client)
 join
   clients c on c.id = j.client#>>'{}';
+```
+
+### Expand JSON field data and join with another table
+
+```sql
+select
+  bi.id as bug_id,
+  tm.id as team_member_id,
+  tm.fields ->> 'Name' as assigned_to,
+  bi.fields ->> 'Description' as description
+from
+  bugs_and_issues as bi,
+  jsonb_array_elements_text(fields -> 'Assigned to') as a,
+  team_members as tm
+order by
+  bug_id;
 ```

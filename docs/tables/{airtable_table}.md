@@ -72,7 +72,7 @@ where
   c.id = cid;
 ```
 
-### List projects using the [formula filter](https://support.airtable.com/hc/en-us/articles/223247187-How-do-I-sort-filter-or-retrieve-ordered-records-in-the-API-)
+### List projects using the [formula filter](https://support.airtable.com/hc/en-us/articles/203255215)
 
 ```sql
 select

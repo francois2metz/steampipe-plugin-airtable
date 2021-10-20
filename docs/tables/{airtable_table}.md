@@ -1,6 +1,6 @@
-# Table: {table}
+# Table: {airtable_table}
 
-The `{table}` table can be used to query your Airtable table. A table is automatically created to represent each configured `tables`.
+The `{airtable_table}` table can be used to query your Airtable table. A table is automatically created to represent each configured `tables`.
 
 For instance, if `tables` is set to `["Design Projects", "Tasks", "Clients"]`, then this plugin will create 3 tables:
 

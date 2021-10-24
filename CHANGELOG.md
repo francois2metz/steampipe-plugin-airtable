@@ -1,3 +1,10 @@
+## v0.1.0 [2021-10-24]
+
+_What's new?_
+
+- **Breaking change**: rename the `query` column to `filter_formula`
+* Added examples
+
 ## v0.0.5 [2021-10-18]
 
 _What's new?_

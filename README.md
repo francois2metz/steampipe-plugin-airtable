@@ -1,3 +1,5 @@
+![Steampipe + Airtable](docs/airtable-social-graphic.png)
+
 # Airtable plugin for Steampipe
 
 Use SQL to query your [Airtable][] tables.

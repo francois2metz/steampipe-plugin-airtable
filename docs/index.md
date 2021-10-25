@@ -4,7 +4,7 @@ category: ["saas"]
 brand_color: "#18BFFF"
 display_name: "Airtable"
 short_name: "Airtable"
-description: "Steampipe plugin for querying airtable."
+description: "Steampipe plugin for querying Airtable."
 og_description: "Query Airtable with SQL! Open source CLI. No DB required."
 icon_url: "/images/plugins/francois2metz/airtable.svg"
 og_image: "/images/plugins/francois2metz/airtable-social-graphic.png"

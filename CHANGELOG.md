@@ -1,3 +1,9 @@
+## v0.1.1 [2021-11-02]
+
+_What's new?_
+
+* Fixed the number of results by default that was maximum 100
+
 ## v0.1.0 [2021-10-24]
 
 _What's new?_

@@ -41,12 +41,12 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 		table := client.GetTable(*airtableConfig.DatabaseID, tableName)
 		offset := ""
 		filterFormula := ""
-		maxResult := int64(100)
+		var maxResult *int64 = nil
 		limit := d.QueryContext.Limit
 
-		if d.QueryContext.Limit != nil {
-			if *limit < maxResult {
-				maxResult = *limit
+		if limit != nil {
+			if *limit < int64(100) {
+				maxResult = limit
 			}
 		}
 
@@ -55,7 +55,12 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 		}
 
 		for {
-			records, err := table.GetRecords().WithFilterFormula(filterFormula).WithOffset(offset).MaxRecords(int(maxResult)).Do()
+			query := table.GetRecords().WithFilterFormula(filterFormula).WithOffset(offset)
+			if maxResult != nil {
+				query = query.MaxRecords(int(*maxResult))
+			}
+
+			records, err := query.Do()
 			if err != nil {
 				return nil, err
 			}

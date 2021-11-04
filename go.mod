@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/iancoleman/strcase v0.2.0
 	github.com/mehanizm/airtable v0.2.4
-	github.com/turbot/steampipe-plugin-sdk v1.7.0
+	github.com/turbot/steampipe-plugin-sdk v1.7.2
 )
 
 require (

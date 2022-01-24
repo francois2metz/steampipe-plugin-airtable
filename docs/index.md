@@ -70,6 +70,8 @@ connection "airtable" {
 }
 ```
 
+You can also set the token via the `AIRTABLE_TOKEN` environment variable.
+
 ## Get Involved
 
 * Open source: https://github.com/francois2metz/steampipe-plugin-airtable

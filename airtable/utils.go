@@ -3,6 +3,7 @@ package airtable
 import (
 	"context"
 	"errors"
+	"os"
 
 	"github.com/iancoleman/strcase"
 	"github.com/mehanizm/airtable"

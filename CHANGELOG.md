@@ -1,3 +1,11 @@
+## v0.1.4 [2022-01-24]
+
+_What's new?_
+
+* Update SDK to 1.8.3
+* Add link on how to get the database id
+* Allow to the set the airtable token via the `AIRTABLE_TOKEN` variable
+
 ## v0.1.3 [2021-11-24]
 
 _What's new?_

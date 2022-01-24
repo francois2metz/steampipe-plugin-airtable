@@ -22,7 +22,7 @@ func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error)
 		return nil, errors.New("You must have an airtable config file")
 	}
 
-	token := ""
+	token := os.Getenv("AIRTABLE_TOKEN")
 	database_id := ""
 
 	if airtableConfig.Token != nil {

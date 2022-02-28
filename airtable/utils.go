@@ -7,7 +7,7 @@ import (
 
 	"github.com/iancoleman/strcase"
 	"github.com/mehanizm/airtable"
-	"github.com/turbot/steampipe-plugin-sdk/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v2/plugin"
 )
 
 func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error) {

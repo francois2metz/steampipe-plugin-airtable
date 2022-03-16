@@ -15,7 +15,7 @@ Install the plugin with [Steampipe][]:
 
 ## Development
 
-To buile the plugin and install it in your `.steampipe` directory
+To build the plugin and install it in your `.steampipe` directory
 
     make
 

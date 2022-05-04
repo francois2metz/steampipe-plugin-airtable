@@ -1,3 +1,11 @@
+## v0.2.0 [2022-05-04]
+
+_What's new?_
+
+* Update SDK to 3.1.0
+* Update to go 1.18
+* Add arm64 support
+
 ## v0.1.4 [2022-01-24]
 
 _What's new?_

@@ -1,3 +1,9 @@
+## v0.2.1 [2022-05-25]
+
+_What's new?_
+
+* Add error logs
+
 ## v0.2.0 [2022-05-04]
 
 _What's new?_

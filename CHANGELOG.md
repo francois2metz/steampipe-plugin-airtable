@@ -1,3 +1,10 @@
+## v0.3.0 [2022-09-01]
+
+_What's new?_
+
+* Update SDK to 4.1.5
+* Update to go 1.19
+
 ## v0.2.1 [2022-05-25]
 
 _What's new?_

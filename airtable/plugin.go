@@ -25,11 +25,22 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 func PluginTables(ctx context.Context, connection *plugin.Connection) (map[string]*plugin.Table, error) {
 	airtableConfig := GetConfig(connection)
 
-	tableMap := map[string]*plugin.Table{}
-
-	for _, table := range airtableConfig.Tables {
-		tableMap[toTableName(table)] = tableAirtableRecord(table)
+	client, err := rawConnect(ctx, connection)
+	if err != nil {
+		plugin.Logger(ctx).Error("airtable.init", "connection_error", err)
+		return nil, err
 	}
+
+	result, err := client.GetBase(*airtableConfig.DatabaseID).Do()
+	if err != nil {
+		plugin.Logger(ctx).Error("airtable.init", err)
+		return nil, err
+	}
+	tableMap := map[string]*plugin.Table{}
+	for _, table := range result.Tables {
+		tableMap[toTableName(table.Name)] = tableAirtableRecord(ctx, table)
+	}
+
 	tableMap["airtable_base"] = tableAirtableBase()
 	tableMap["airtable_table"] = tableAirtableTable()
 

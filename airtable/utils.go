@@ -10,14 +10,8 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
 )
 
-func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error) {
-	// get airtable client from cache
-	cacheKey := "airtable"
-	if cachedData, ok := d.ConnectionManager.Cache.Get(cacheKey); ok {
-		return cachedData.(*airtable.Client), nil
-	}
-
-	airtableConfig := GetConfig(d.Connection)
+func rawConnect(ctx context.Context, connection *plugin.Connection) (*airtable.Client, error) {
+	airtableConfig := GetConfig(connection)
 
 	token := os.Getenv("AIRTABLE_TOKEN")
 	database_id := ""
@@ -36,6 +30,21 @@ func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error)
 	}
 
 	client := airtable.NewClient(token)
+
+	return client, nil
+}
+
+func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error) {
+	// get airtable client from cache
+	cacheKey := "airtable"
+	if cachedData, ok := d.ConnectionManager.Cache.Get(cacheKey); ok {
+		return cachedData.(*airtable.Client), nil
+	}
+
+	client, err := rawConnect(ctx, d.Connection)
+	if err != nil {
+		return nil, err
+	}
 
 	// Save to cache
 	d.ConnectionManager.Cache.Set(cacheKey, client)

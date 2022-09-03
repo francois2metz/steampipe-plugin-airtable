@@ -3,35 +3,55 @@ package airtable
 import (
 	"context"
 
+	"github.com/mehanizm/airtable"
 	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
 )
 
-func tableAirtableRecord(tableName string) *plugin.Table {
+func tableAirtableRecord(ctx context.Context, table *airtable.TableSchema) *plugin.Table {
+	columns := []*plugin.Column{
+		{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the record was created."},
+		{Name: "filter_formula", Type: proto.ColumnType_STRING, Description: "The formula used to filter records. For more information see https://support.airtable.com/hc/en-us/articles/203255215.", Transform: transform.FromQual("filter_formula")},
+	}
+	for _, field := range table.Fields {
+		plugin.Logger(ctx).Warn(table.Name, field.Name)
+		columns = append(columns, &plugin.Column{
+			Name:        field.Name,
+			Type:        airtableFieldTypeToSteampipeType(field.Type),
+			Description: field.Description,
+			Transform:   transform.FromField("Fields." + field.Name),
+		})
+	}
 	return &plugin.Table{
-		Name:        toTableName(tableName),
-		Description: "The " + tableName + " table.",
+		Name:        toTableName(table.Name),
+		Description: "The " + table.Name + " table.",
 		List: &plugin.ListConfig{
-			Hydrate:           listRecord(tableName),
+			Hydrate:           listRecord(table),
 			KeyColumns:        plugin.OptionalColumns([]string{"filter_formula"}),
 			ShouldIgnoreError: isNotFoundError,
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns:        plugin.SingleColumn("id"),
-			Hydrate:           getRecord(tableName),
+			Hydrate:           getRecord(table),
 			ShouldIgnoreError: isNotFoundError,
 		},
-		Columns: []*plugin.Column{
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID of the row."},
-			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the record was created."},
-			{Name: "fields", Type: proto.ColumnType_JSON, Description: "The fields of the row."},
-			{Name: "filter_formula", Type: proto.ColumnType_STRING, Description: "The formula used to filter records. For more information see https://support.airtable.com/hc/en-us/articles/203255215.", Transform: transform.FromQual("filter_formula")},
-		},
+		Columns: columns,
 	}
 }
 
-func listRecord(tableName string) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func airtableFieldTypeToSteampipeType(airtableType string) proto.ColumnType {
+	switch airtableType {
+	case "number", "autoNumber", "count":
+		return proto.ColumnType_DOUBLE
+	case "date", "lastModifiedTime", "createdTime":
+		return proto.ColumnType_TIMESTAMP
+	default:
+		return proto.ColumnType_STRING
+	}
+}
+
+func listRecord(table *airtable.TableSchema) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	return func(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 		client, err := connect(ctx, d)
 		if err != nil {
@@ -39,7 +59,7 @@ func listRecord(tableName string) func(ctx context.Context, d *plugin.QueryData,
 			return nil, err
 		}
 		airtableConfig := GetConfig(d.Connection)
-		table := client.GetTable(*airtableConfig.DatabaseID, tableName)
+		table := client.GetTable(*airtableConfig.DatabaseID, table.Name)
 		offset := ""
 		filterFormula := ""
 		var maxResult *int64 = nil
@@ -81,7 +101,7 @@ func listRecord(tableName string) func(ctx context.Context, d *plugin.QueryData,
 	}
 }
 
-func getRecord(tableName string) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getRecord(table *airtable.TableSchema) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	return func(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 		client, err := connect(ctx, d)
 		if err != nil {
@@ -89,7 +109,7 @@ func getRecord(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 			return nil, err
 		}
 		airtableConfig := GetConfig(d.Connection)
-		table := client.GetTable(*airtableConfig.DatabaseID, tableName)
+		table := client.GetTable(*airtableConfig.DatabaseID, table.Name)
 		quals := d.KeyColumnQuals
 		id := quals["id"].GetStringValue()
 		record, err := table.GetRecord(id)

@@ -8,18 +8,18 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
 )
 
-func tableAirtableTable(tableName string) *plugin.Table {
+func tableAirtableRecord(tableName string) *plugin.Table {
 	return &plugin.Table{
 		Name:        toTableName(tableName),
 		Description: "The " + tableName + " table.",
 		List: &plugin.ListConfig{
-			Hydrate:           listTable(tableName),
+			Hydrate:           listRecord(tableName),
 			KeyColumns:        plugin.OptionalColumns([]string{"filter_formula"}),
 			ShouldIgnoreError: isNotFoundError,
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns:        plugin.SingleColumn("id"),
-			Hydrate:           getTable(tableName),
+			Hydrate:           getRecord(tableName),
 			ShouldIgnoreError: isNotFoundError,
 		},
 		Columns: []*plugin.Column{
@@ -31,7 +31,7 @@ func tableAirtableTable(tableName string) *plugin.Table {
 	}
 }
 
-func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func listRecord(tableName string) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	return func(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 		client, err := connect(ctx, d)
 		if err != nil {
@@ -81,7 +81,7 @@ func listTable(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 	}
 }
 
-func getTable(tableName string) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getRecord(tableName string) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	return func(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 		client, err := connect(ctx, d)
 		if err != nil {

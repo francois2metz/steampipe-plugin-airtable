@@ -31,6 +31,7 @@ func PluginTables(ctx context.Context, connection *plugin.Connection) (map[strin
 		tableMap[toTableName(table)] = tableAirtableRecord(table)
 	}
 	tableMap["airtable_base"] = tableAirtableBase()
+	tableMap["airtable_table"] = tableAirtableTable()
 
 	return tableMap, nil
 }

@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/iancoleman/strcase v0.2.0
 	github.com/mehanizm/airtable v0.2.4
-	github.com/turbot/steampipe-plugin-sdk/v4 v4.1.5
+	github.com/turbot/steampipe-plugin-sdk/v4 v4.1.8
 )
 
 require (
@@ -32,7 +32,7 @@ require (
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0 // indirect
-	github.com/hashicorp/go-hclog v1.2.0 // indirect
+	github.com/hashicorp/go-hclog v1.2.2 // indirect
 	github.com/hashicorp/go-plugin v1.4.4 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.12.0 // indirect

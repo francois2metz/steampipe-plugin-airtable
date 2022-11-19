@@ -1,4 +1,4 @@
-# Table: {airtable_table}
+# Table: {airtable_record}
 
 Query data from Airtable tables. A table is automatically created to represent each Airtable table found in the configured `tables`.
 

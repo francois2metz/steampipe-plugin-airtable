@@ -35,7 +35,7 @@ func listRecord(tableName string) func(ctx context.Context, d *plugin.QueryData,
 	return func(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 		client, err := connect(ctx, d)
 		if err != nil {
-			plugin.Logger(ctx).Error("airtable_table.listTable", "connection_error", err)
+			plugin.Logger(ctx).Error("airtable_record.listRecord", "connection_error", err)
 			return nil, err
 		}
 		airtableConfig := GetConfig(d.Connection)
@@ -63,7 +63,7 @@ func listRecord(tableName string) func(ctx context.Context, d *plugin.QueryData,
 
 			records, err := query.Do()
 			if err != nil {
-				plugin.Logger(ctx).Error("airtable_table.listTable", err)
+				plugin.Logger(ctx).Error("airtable_record.listRecord", err)
 				return nil, err
 			}
 			for _, record := range records.Records {
@@ -85,7 +85,7 @@ func getRecord(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 	return func(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 		client, err := connect(ctx, d)
 		if err != nil {
-			plugin.Logger(ctx).Error("airtable_table.getTable", "connection_error", err)
+			plugin.Logger(ctx).Error("airtable_record.getRecord", "connection_error", err)
 			return nil, err
 		}
 		airtableConfig := GetConfig(d.Connection)
@@ -94,7 +94,7 @@ func getRecord(tableName string) func(ctx context.Context, d *plugin.QueryData, 
 		id := quals["id"].GetStringValue()
 		record, err := table.GetRecord(id)
 		if err != nil {
-			plugin.Logger(ctx).Error("airtable_table.getTable", err)
+			plugin.Logger(ctx).Error("airtable_record.getRecord", err)
 			return nil, err
 		}
 		return record, nil

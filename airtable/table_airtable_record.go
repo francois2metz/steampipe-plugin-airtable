@@ -9,7 +9,7 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
 )
 
-func tableAirtableRecord(ctx context.Context, table *airtable.TableSchema) *plugin.Table {
+func tableAirtableRecord(ctx context.Context, databaseID string, table *airtable.TableSchema) *plugin.Table {
 	columns := []*plugin.Column{
 		{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the record was created."},
 		{Name: "filter_formula", Type: proto.ColumnType_STRING, Description: "The formula used to filter records. For more information see https://support.airtable.com/hc/en-us/articles/203255215.", Transform: transform.FromQual("filter_formula")},
@@ -27,13 +27,13 @@ func tableAirtableRecord(ctx context.Context, table *airtable.TableSchema) *plug
 		Name:        toTableName(table.Name),
 		Description: "The " + table.Name + " table.",
 		List: &plugin.ListConfig{
-			Hydrate:           listRecord(table),
+			Hydrate:           listRecord(databaseID, table),
 			KeyColumns:        plugin.OptionalColumns([]string{"filter_formula"}),
 			ShouldIgnoreError: isNotFoundError,
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns:        plugin.SingleColumn("id"),
-			Hydrate:           getRecord(table),
+			Hydrate:           getRecord(databaseID, table),
 			ShouldIgnoreError: isNotFoundError,
 		},
 		Columns: columns,
@@ -53,15 +53,14 @@ func airtableFieldTypeToSteampipeType(airtableType string) proto.ColumnType {
 	}
 }
 
-func listRecord(table *airtable.TableSchema) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func listRecord(databaseID string, table *airtable.TableSchema) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	return func(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 		client, err := connect(ctx, d)
 		if err != nil {
 			plugin.Logger(ctx).Error("airtable_record.listRecord", "connection_error", err)
 			return nil, err
 		}
-		airtableConfig := GetConfig(d.Connection)
-		table := client.GetTable(*airtableConfig.DatabaseID, table.Name)
+		table := client.GetTable(databaseID, table.Name)
 		offset := ""
 		filterFormula := ""
 		var maxResult *int64 = nil
@@ -103,15 +102,14 @@ func listRecord(table *airtable.TableSchema) func(ctx context.Context, d *plugin
 	}
 }
 
-func getRecord(table *airtable.TableSchema) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getRecord(databaseID string, table *airtable.TableSchema) func(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	return func(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 		client, err := connect(ctx, d)
 		if err != nil {
 			plugin.Logger(ctx).Error("airtable_record.getRecord", "connection_error", err)
 			return nil, err
 		}
-		airtableConfig := GetConfig(d.Connection)
-		table := client.GetTable(*airtableConfig.DatabaseID, table.Name)
+		table := client.GetTable(databaseID, table.Name)
 		quals := d.KeyColumnQuals
 		id := quals["id"].GetStringValue()
 		record, err := table.GetRecord(id)

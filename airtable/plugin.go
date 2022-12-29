@@ -38,7 +38,7 @@ func PluginTables(ctx context.Context, connection *plugin.Connection) (map[strin
 	}
 	tableMap := map[string]*plugin.Table{}
 	for _, table := range result.Tables {
-		tableMap[toTableName(table.Name)] = tableAirtableRecord(ctx, table)
+		tableMap[toTableName(table.Name)] = tableAirtableRecord(ctx, *airtableConfig.DatabaseID, table)
 	}
 
 	tableMap["airtable_base"] = tableAirtableBase()

@@ -14,19 +14,12 @@ func rawConnect(ctx context.Context, connection *plugin.Connection) (*airtable.C
 	airtableConfig := GetConfig(connection)
 
 	token := os.Getenv("AIRTABLE_TOKEN")
-	database_id := ""
 
 	if airtableConfig.Token != nil {
 		token = *airtableConfig.Token
 	}
-	if airtableConfig.DatabaseID != nil {
-		database_id = *airtableConfig.DatabaseID
-	}
 	if token == "" {
 		return nil, errors.New("'token' must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
-	}
-	if database_id == "" {
-		return nil, errors.New("'database_id' must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
 	}
 
 	client := airtable.NewClient(token)
@@ -52,6 +45,6 @@ func connect(ctx context.Context, d *plugin.QueryData) (*airtable.Client, error)
 	return client, nil
 }
 
-func toTableName(rawTableName string) string {
-	return strcase.ToSnake(rawTableName)
+func toTableName(databaseID string, rawTableName string) string {
+	return databaseID + "_" + strcase.ToSnake(rawTableName)
 }

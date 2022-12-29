@@ -9,7 +9,7 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
 )
 
-func tableAirtableRecord(ctx context.Context, databaseID string, table *airtable.TableSchema) *plugin.Table {
+func tableAirtableRecord(ctx context.Context, base *airtable.Base, table *airtable.TableSchema) *plugin.Table {
 	columns := []*plugin.Column{
 		{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the record was created."},
 		{Name: "filter_formula", Type: proto.ColumnType_STRING, Description: "The formula used to filter records. For more information see https://support.airtable.com/hc/en-us/articles/203255215.", Transform: transform.FromQual("filter_formula")},
@@ -23,16 +23,16 @@ func tableAirtableRecord(ctx context.Context, databaseID string, table *airtable
 		})
 	}
 	return &plugin.Table{
-		Name:        toTableName(table.Name),
-		Description: "The " + table.Name + " table.",
+		Name:        toTableName(base.ID, table.Name),
+		Description: "The " + table.Name + " table from the base "+ base.Name +".",
 		List: &plugin.ListConfig{
-			Hydrate:           listRecord(databaseID, table),
+			Hydrate:           listRecord(base.ID, table),
 			KeyColumns:        plugin.OptionalColumns([]string{"filter_formula"}),
 			ShouldIgnoreError: isNotFoundError,
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns:        plugin.SingleColumn("id"),
-			Hydrate:           getRecord(databaseID, table),
+			Hydrate:           getRecord(base.ID, table),
 			ShouldIgnoreError: isNotFoundError,
 		},
 		Columns: columns,

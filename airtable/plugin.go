@@ -31,7 +31,7 @@ func PluginTables(ctx context.Context, connection *plugin.Connection) (map[strin
 		return nil, err
 	}
 
-	result, err := client.GetBase(*airtableConfig.DatabaseID).Do()
+	result, err := client.GetBaseSchema(*airtableConfig.DatabaseID).Do()
 	if err != nil {
 		plugin.Logger(ctx).Error("airtable.init", err)
 		return nil, err

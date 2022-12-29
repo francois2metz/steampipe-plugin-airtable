@@ -34,9 +34,9 @@ func listTable(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		return nil, err
 	}
 	baseID := d.KeyColumnQuals["base_id"].GetStringValue()
-	base := client.GetBase(baseID)
+	baseSchema := client.GetBaseSchema(baseID)
 
-	result, err := base.Do()
+	result, err := baseSchema.Do()
 	if err != nil {
 		plugin.Logger(ctx).Error("airtable_table.listTable", err)
 		return nil, err

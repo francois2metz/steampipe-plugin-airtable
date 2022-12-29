@@ -15,7 +15,6 @@ func tableAirtableRecord(ctx context.Context, databaseID string, table *airtable
 		{Name: "filter_formula", Type: proto.ColumnType_STRING, Description: "The formula used to filter records. For more information see https://support.airtable.com/hc/en-us/articles/203255215.", Transform: transform.FromQual("filter_formula")},
 	}
 	for _, field := range table.Fields {
-		plugin.Logger(ctx).Warn(table.Name, field.Name)
 		columns = append(columns, &plugin.Column{
 			Name:        field.Name,
 			Type:        airtableFieldTypeToSteampipeType(field.Type),

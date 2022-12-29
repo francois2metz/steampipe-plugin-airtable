@@ -46,6 +46,8 @@ func airtableFieldTypeToSteampipeType(airtableType string) proto.ColumnType {
 		return proto.ColumnType_DOUBLE
 	case "date", "lastModifiedTime", "createdTime":
 		return proto.ColumnType_TIMESTAMP
+	case "multipleLookupValues", "multipleRecordLinks":
+		return proto.ColumnType_JSON
 	default:
 		return proto.ColumnType_STRING
 	}

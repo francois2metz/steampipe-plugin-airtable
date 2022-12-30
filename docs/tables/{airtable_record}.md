@@ -24,8 +24,7 @@ from
 
 ```sql
 select
-  created_time,
-  fields
+  *
 from
   baseid_design_projects
 where
@@ -62,12 +61,12 @@ from
 select
   d.id as project_id,
   c.id as client_id,
-  d.fields ->> 'Name' as project_name,
-  c.fields ->> 'Name' as client_name,
-  c.fields ->> 'About' as client_description
+  d."Name" as project_name,
+  c."Name" as client_name,
+  c."About" as client_description
 from
   baseid_design_projects as d,
-  jsonb_array_elements_text(d.fields -> 'Client') as cid,
+  jsonb_array_elements_text(d."Client") as cid,
   baseid_clients as c
 where
   c.id = cid;
@@ -77,8 +76,8 @@ where
 
 ```sql
 select
-  fields ->> 'Name' as name,
-  fields ->> 'Kickoff date' as kickoff_date
+  "Name",
+  "Kickoff date"
 from
   baseid_design_projects
 where

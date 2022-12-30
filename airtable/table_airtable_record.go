@@ -11,6 +11,7 @@ import (
 
 func tableAirtableRecord(ctx context.Context, base *airtable.Base, table *airtable.TableSchema) *plugin.Table {
 	columns := []*plugin.Column{
+		{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID of the row"},
 		{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the record was created."},
 		{Name: "filter_formula", Type: proto.ColumnType_STRING, Description: "The formula used to filter records. For more information see https://support.airtable.com/hc/en-us/articles/203255215.", Transform: transform.FromQual("filter_formula")},
 	}

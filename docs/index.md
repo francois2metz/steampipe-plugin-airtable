@@ -21,14 +21,14 @@ For example:
 ```sql
 select
   id,
-  fields->'Name' as name
+  "Name"
 from
-  design_projects
+  appid_design_projects
 ```
 
 ```
 +--------------------+--------------------------+
-| id                 | name                     |
+| id                 | Name                     |
 +--------------------+--------------------------+
 | recHQSd02Tjhba3ue  | Coffee packaging         |
 | rec1x6H2wuyJArcwM  | EngineerU brand identity |

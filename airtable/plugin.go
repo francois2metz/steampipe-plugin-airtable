@@ -23,13 +23,39 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 }
 
 func PluginTables(ctx context.Context, connection *plugin.Connection) (map[string]*plugin.Table, error) {
-	airtableConfig := GetConfig(connection)
-
 	tableMap := map[string]*plugin.Table{}
-
-	for _, table := range airtableConfig.Tables {
-		tableMap[toTableName(table)] = tableAirtableRecord(table)
+	client, err := rawConnect(ctx, connection)
+	if err != nil {
+		plugin.Logger(ctx).Error("airtable.init", "connection_error", err)
+		return nil, err
 	}
+
+	bases := client.GetBases()
+	offset := ""
+	for {
+		resultBase, err := bases.WithOffset(offset).Do()
+		if err != nil {
+			plugin.Logger(ctx).Error("airtable.init_bases", err)
+			return nil, err
+		}
+		for _, base := range resultBase.Bases {
+			result, err := client.GetBaseSchema(base.ID).Do()
+			if err != nil {
+				plugin.Logger(ctx).Error("airtable.init_getbaseschema", err)
+				return nil, err
+			}
+			for _, table := range result.Tables {
+				tableMap[toTableName(base.ID, table.Name)] = tableAirtableRecord(ctx, base, table)
+			}
+		}
+		offset = resultBase.Offset
+		if offset == "" {
+			break
+		}
+	}
+
+	tableMap["airtable_base"] = tableAirtableBase()
+	tableMap["airtable_table"] = tableAirtableTable()
 
 	return tableMap, nil
 }

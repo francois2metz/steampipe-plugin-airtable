@@ -1,12 +1,13 @@
 # Table: {airtable_record}
 
-Query data from Airtable tables. A table is automatically created to represent each Airtable table found in the configured `tables`.
+Query data from Airtable tables. A table is automatically created for each tables on each bases available.
 
-For instance, if `tables` is set to `["Design Projects", "Tasks", "Clients"]`, then this plugin will create 3 tables:
+For instance, if you have 2 bases with 2 tables on each, then this plugin will create 4 tables:
 
-- design_projects
-- tasks
-- clients
+- baseid1_table_name1
+- baseid1_table_name2
+- baseid2_table_name1
+- baseid2_table_name2
 
 ## Examples
 
@@ -16,7 +17,7 @@ For instance, if `tables` is set to `["Design Projects", "Tasks", "Clients"]`, t
 select
   id
 from
-  design_projects;
+  baseid_design_projects;
 ```
 
 ### Get a record by ID
@@ -26,7 +27,7 @@ select
   created_time,
   fields
 from
-  design_projects
+  baseid_design_projects
 where
   id = 'recdTpx4c0kPPDTtf';
 ```
@@ -37,7 +38,7 @@ where
 select
   id
 from
-  design_projects
+  baseid_design_projects
 order by
   created_time desc
 limit
@@ -51,7 +52,7 @@ select
   d.id as project_id,
   cid as client_id
 from
-  design_projects as d,
+  baseid_design_projects as d,
   jsonb_array_elements_text(d.fields -> 'Client') as cid;
 ```
 
@@ -65,9 +66,9 @@ select
   c.fields ->> 'Name' as client_name,
   c.fields ->> 'About' as client_description
 from
-  design_projects as d,
+  baseid_design_projects as d,
   jsonb_array_elements_text(d.fields -> 'Client') as cid,
-  clients as c
+  baseid_clients as c
 where
   c.id = cid;
 ```
@@ -79,7 +80,7 @@ select
   fields ->> 'Name' as name,
   fields ->> 'Kickoff date' as kickoff_date
 from
-  design_projects
+  baseid_design_projects
 where
   filter_formula = 'IS_AFTER({Kickoff date}, "2020-10-01")';
 ```

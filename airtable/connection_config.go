@@ -6,7 +6,7 @@ import (
 )
 
 type airtableConfig struct {
-	Token      *string `cty:"token"`
+	Token *string `cty:"token"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{

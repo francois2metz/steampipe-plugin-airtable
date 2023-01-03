@@ -15,9 +15,21 @@ func tableAirtableBase() *plugin.Table {
 			Hydrate: listBase,
 		},
 		Columns: []*plugin.Column{
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "A unique identifier for a base."},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name of the base."},
-			{Name: "permission_level", Type: proto.ColumnType_STRING, Description: "Your permissions: none, read, comment, edit, create."},
+			{
+				Name:        "id",
+				Type:        proto.ColumnType_STRING,
+				Description: "A unique identifier for a base.",
+			},
+			{
+				Name:        "name",
+				Type:        proto.ColumnType_STRING,
+				Description: "Name of the base.",
+			},
+			{
+				Name:        "permission_level",
+				Type:        proto.ColumnType_STRING,
+				Description: "Your permissions: none, read, comment, edit, create.",
+			},
 		},
 	}
 }

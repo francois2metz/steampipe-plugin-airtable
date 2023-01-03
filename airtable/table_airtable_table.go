@@ -17,12 +17,33 @@ func tableAirtableTable() *plugin.Table {
 			KeyColumns: plugin.SingleColumn("base_id"),
 		},
 		Columns: []*plugin.Column{
-			{Name: "base_id", Type: proto.ColumnType_STRING, Transform: transform.FromQual("base_id"), Description: "ID of the base."},
+			{
+				Name:        "base_id",
+				Type:        proto.ColumnType_STRING,
+				Transform:   transform.FromQual("base_id"),
+				Description: "ID of the base.",
+			},
 
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "A unique identifier for the table."},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name of the table."},
-			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description of the table."},
-			{Name: "fields", Type: proto.ColumnType_JSON, Description: "Fields of the table."},
+			{
+				Name:        "id",
+				Type:        proto.ColumnType_STRING,
+				Description: "A unique identifier for the table.",
+			},
+			{
+				Name:        "name",
+				Type:        proto.ColumnType_STRING,
+				Description: "Name of the table.",
+			},
+			{
+				Name:        "description",
+				Type:        proto.ColumnType_STRING,
+				Description: "Description of the table.",
+			},
+			{
+				Name:        "fields",
+				Type:        proto.ColumnType_JSON,
+				Description: "Fields of the table.",
+			},
 		},
 	}
 }

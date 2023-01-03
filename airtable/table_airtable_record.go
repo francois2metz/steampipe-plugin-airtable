@@ -11,9 +11,22 @@ import (
 
 func tableAirtableRecord(ctx context.Context, base *airtable.Base, table *airtable.TableSchema) *plugin.Table {
 	columns := []*plugin.Column{
-		{Name: "id", Type: proto.ColumnType_STRING, Description: "The record ID of the row"},
-		{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Time when the record was created."},
-		{Name: "filter_formula", Type: proto.ColumnType_STRING, Description: "The formula used to filter records. For more information see https://support.airtable.com/hc/en-us/articles/203255215.", Transform: transform.FromQual("filter_formula")},
+		{
+			Name:        "id",
+			Type:        proto.ColumnType_STRING,
+			Description: "The record ID of the row",
+		},
+		{
+			Name:        "created_time",
+			Type:        proto.ColumnType_TIMESTAMP,
+			Description: "Time when the record was created.",
+		},
+		{
+			Name:        "filter_formula",
+			Type:        proto.ColumnType_STRING,
+			Description: "The formula used to filter records. For more information see https://support.airtable.com/hc/en-us/articles/203255215.",
+			Transform:   transform.FromQual("filter_formula"),
+		},
 	}
 	for _, field := range table.Fields {
 		columns = append(columns, &plugin.Column{
@@ -25,7 +38,7 @@ func tableAirtableRecord(ctx context.Context, base *airtable.Base, table *airtab
 	}
 	return &plugin.Table{
 		Name:        toTableName(base.ID, table.Name),
-		Description: "The " + table.Name + " table from the base "+ base.Name +".",
+		Description: "The " + table.Name + " table from the base " + base.Name + ".",
 		List: &plugin.ListConfig{
 			Hydrate:           listRecord(base.ID, table),
 			KeyColumns:        plugin.OptionalColumns([]string{"filter_formula"}),

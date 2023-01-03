@@ -23,7 +23,6 @@ func tableAirtableTable() *plugin.Table {
 				Transform:   transform.FromQual("base_id"),
 				Description: "ID of the base.",
 			},
-
 			{
 				Name:        "id",
 				Type:        proto.ColumnType_STRING,

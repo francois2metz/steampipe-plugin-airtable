@@ -1,3 +1,17 @@
+## v0.4.0 [Unreleased]
+
+_**Breaking changes**_
+- The new SDK support only the new personal access token: https://airtable.com/create/tokens with the scopes *data.records:read* and *schema.bases:read*.
+- The config *database_id* and *tables* has been removed
+- The plugin expose now all tables from all bases by default. To access the records, the table are now named {{databaseid}}_{{tablename}}.
+- The column fields on *airtable_record* table has been removed. You can now use the same columns name as in Airtable (with the correct type).
+
+_What's new?_
+
+* Update SDK to v5
+* Add table *airtable_base*
+* Add table *airtable_tables*
+
 ## v0.3.0 [2022-09-01]
 
 _What's new?_

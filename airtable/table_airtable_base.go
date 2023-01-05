@@ -3,8 +3,8 @@ package airtable
 import (
 	"context"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
 func tableAirtableBase() *plugin.Table {
@@ -54,7 +54,7 @@ func listBase(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (
 		for _, base := range result.Bases {
 			d.StreamListItem(ctx, base)
 		}
-		if d.QueryStatus.RowsRemaining(ctx) <= 0 {
+		if d.RowsRemaining(ctx) <= 0 {
 			break
 		}
 		offset = result.Offset

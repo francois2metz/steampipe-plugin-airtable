@@ -3,9 +3,9 @@ package airtable
 import (
 	"context"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableAirtableTable() *plugin.Table {
@@ -53,7 +53,7 @@ func listTable(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		plugin.Logger(ctx).Error("airtable_table.listTable", "connection_error", err)
 		return nil, err
 	}
-	baseID := d.KeyColumnQuals["base_id"].GetStringValue()
+	baseID := d.EqualsQuals["base_id"].GetStringValue()
 	baseSchema := client.GetBaseSchema(baseID)
 
 	result, err := baseSchema.Do()

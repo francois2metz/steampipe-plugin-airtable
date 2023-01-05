@@ -3,8 +3,8 @@ package airtable
 import (
 	"context"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func Plugin(ctx context.Context) *plugin.Plugin {
@@ -22,9 +22,9 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 	return p
 }
 
-func PluginTables(ctx context.Context, connection *plugin.Connection) (map[string]*plugin.Table, error) {
+func PluginTables(ctx context.Context, d *plugin.TableMapData) (map[string]*plugin.Table, error) {
 	tableMap := map[string]*plugin.Table{}
-	client, err := rawConnect(ctx, connection)
+	client, err := rawConnect(ctx, d.Connection, d.ConectionCache)
 	if err != nil {
 		plugin.Logger(ctx).Error("airtable.init", "connection_error", err)
 		return nil, err

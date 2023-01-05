@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/mehanizm/airtable"
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableAirtableRecord(ctx context.Context, base *airtable.Base, table *airtable.TableSchema) *plugin.Table {
@@ -85,8 +85,8 @@ func listRecord(databaseID string, table *airtable.TableSchema) func(ctx context
 			}
 		}
 
-		if d.KeyColumnQuals["filter_formula"] != nil {
-			filterFormula = d.KeyColumnQuals["filter_formula"].GetStringValue()
+		if d.EqualsQuals["filter_formula"] != nil {
+			filterFormula = d.EqualsQuals["filter_formula"].GetStringValue()
 		}
 
 		for {
@@ -103,7 +103,7 @@ func listRecord(databaseID string, table *airtable.TableSchema) func(ctx context
 			for _, record := range records.Records {
 				d.StreamListItem(ctx, record)
 			}
-			if d.QueryStatus.RowsRemaining(ctx) <= 0 {
+			if d.RowsRemaining(ctx) <= 0 {
 				break
 			}
 			offset = records.Offset
@@ -123,7 +123,7 @@ func getRecord(databaseID string, table *airtable.TableSchema) func(ctx context.
 			return nil, err
 		}
 		table := client.GetTable(databaseID, table.Name)
-		quals := d.KeyColumnQuals
+		quals := d.EqualsQuals
 		id := quals["id"].GetStringValue()
 		record, err := table.GetRecord(id)
 		if err != nil {

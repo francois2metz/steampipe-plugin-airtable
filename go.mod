@@ -2,11 +2,9 @@ module github.com/francois2metz/steampipe-plugin-airtable
 
 go 1.19
 
-replace github.com/mehanizm/airtable => github.com/francois2metz/go-airtable v0.0.0-20221229110238-a5150f0e3a0e
-
 require (
 	github.com/iancoleman/strcase v0.2.0
-	github.com/mehanizm/airtable v0.2.4
+	github.com/mehanizm/airtable v0.2.7-0.20230101141829-1b1e6e9e92d6
 	github.com/turbot/steampipe-plugin-sdk/v5 v5.0.2
 )
 

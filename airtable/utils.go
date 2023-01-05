@@ -32,7 +32,10 @@ func rawConnect(ctx context.Context, connection *plugin.Connection, connectionca
 	client := airtable.NewClient(token)
 
 	// Save to cache
-	connectioncache.Set(ctx, cacheKey, client)
+	err := connectioncache.Set(ctx, cacheKey, client)
+	if err != nil {
+		return nil, err
+	}
 
 	return client, nil
 }

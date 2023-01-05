@@ -85,7 +85,7 @@ _What's new?_
 _What's new?_
 
 - **Breaking change**: the *databaseid* config param has been renamed to *database_id*
-- 404 errors are not handled
+- 404 errors are now handled
 - Add the *query* column to use the *filterByFormula* param
 - Limit results when limit parameter < 100
 

@@ -56,7 +56,7 @@ func tableAirtableRecord(ctx context.Context, base *airtable.Base, table *airtab
 
 func findColumnNameAvailable(columns []*plugin.Column, fieldName string) string {
 	if hasThisColumnNameAlready(columns, fieldName) {
-		return findColumnNameAvailable(columns, "_"+ fieldName)
+		return findColumnNameAvailable(columns, "_"+fieldName)
 	}
 	return fieldName
 }

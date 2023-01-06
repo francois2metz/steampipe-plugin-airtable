@@ -29,8 +29,9 @@ func tableAirtableRecord(ctx context.Context, base *airtable.Base, table *airtab
 		},
 	}
 	for _, field := range table.Fields {
+		columnName := findColumnNameAvailable(columns, field.Name)
 		columns = append(columns, &plugin.Column{
-			Name:        field.Name,
+			Name:        columnName,
 			Type:        airtableFieldTypeToSteampipeType(field.Type),
 			Description: field.Description,
 			Transform:   transform.FromField("Fields." + field.Name),
@@ -51,6 +52,22 @@ func tableAirtableRecord(ctx context.Context, base *airtable.Base, table *airtab
 		},
 		Columns: columns,
 	}
+}
+
+func findColumnNameAvailable(columns []*plugin.Column, fieldName string) string {
+	if hasThisColumnNameAlready(columns, fieldName) {
+		return findColumnNameAvailable(columns, "_"+ fieldName)
+	}
+	return fieldName
+}
+
+func hasThisColumnNameAlready(columns []*plugin.Column, fieldName string) bool {
+	for _, column := range columns {
+		if column.Name == fieldName {
+			return true
+		}
+	}
+	return false
 }
 
 func airtableFieldTypeToSteampipeType(airtableType string) proto.ColumnType {

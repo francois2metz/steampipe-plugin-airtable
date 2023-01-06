@@ -1,10 +1,12 @@
-## v0.4.0 [Unreleased]
+## v0.4.0 [2023-01-06]
+
+New token, new config, new queries, this new release break the the compatibility with the previous versions as it's use the new meta API from Airtable.
 
 _**Breaking changes**_
 - The new SDK support only the new personal access token: https://airtable.com/create/tokens with the scopes *data.records:read* and *schema.bases:read*.
-- The config *database_id* and *tables* has been removed
-- The plugin expose now all tables from all bases by default. To access the records, the table are now named {{databaseid}}_{{tablename}}.
-- The column fields on *airtable_record* table has been removed. You can now use the same columns name as in Airtable (with the correct type).
+- The config fields *database_id* and *tables* have been removed
+- The plugin expose now all tables from all bases by default. To access the records, the table is now named {{databaseid}}_{{tablename}}.
+- The column fields on *airtable_record* table has been removed. You can now use the same columns name as in Airtable (with the correct type). If one field match an existing one, it is prefixed by an underscore.
 
 _What's new?_
 

@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/iancoleman/strcase v0.3.0
-	github.com/mehanizm/airtable v0.2.7-0.20230101141829-1b1e6e9e92d6
+	github.com/mehanizm/airtable v0.3.1
 	github.com/turbot/steampipe-plugin-sdk/v5 v5.6.2
 )
 

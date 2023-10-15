@@ -1,3 +1,10 @@
+## v0.5.0 [2023-10-15]
+
+_What's new?_
+
+* Update SDK to v5.6.2
+* Update go to 1.21
+
 ## v0.4.0 [2023-01-06]
 
 New token, new config, new queries, this new release break the the compatibility with the previous versions as it's use the new meta API from Airtable.

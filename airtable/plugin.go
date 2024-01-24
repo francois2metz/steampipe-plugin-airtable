@@ -27,7 +27,7 @@ func PluginTables(ctx context.Context, d *plugin.TableMapData) (map[string]*plug
 	client, err := rawConnect(ctx, d.Connection, d.ConnectionCache)
 	if err != nil {
 		plugin.Logger(ctx).Error("airtable.init", "connection_error", err)
-		return nil, err
+		return tableMap, nil
 	}
 
 	bases := client.GetBases()

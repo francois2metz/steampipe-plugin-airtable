@@ -25,6 +25,7 @@ func rawConnect(ctx context.Context, connection *plugin.Connection, connectionca
 	if airtableConfig.Token != nil {
 		token = *airtableConfig.Token
 	}
+	
 	if token == "" {
 		return nil, errors.New("'token' must be set in the connection configuration. Edit your connection configuration file and then restart Steampipe")
 	}

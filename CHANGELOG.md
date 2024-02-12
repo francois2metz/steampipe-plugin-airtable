@@ -1,3 +1,10 @@
+## v0.5.1 [2024-02-12]
+
+_What's new?_
+
+* Fix the plugin initialization error when the API token is not set in the .spc file [#17](https://github.com/francois2metz/steampipe-plugin-airtable/pull/16). Thanks [@misraved](https://github.com/misraved).
+
+
 ## v0.5.0 [2023-10-15]
 
 _What's new?_

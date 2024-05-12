@@ -2,7 +2,7 @@ module github.com/francois2metz/steampipe-plugin-airtable
 
 go 1.21.0
 
-toolchain go1.22.2
+toolchain go1.21.3
 
 require (
 	github.com/iancoleman/strcase v0.3.0

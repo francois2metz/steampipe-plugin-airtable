@@ -1,6 +1,6 @@
 module github.com/francois2metz/steampipe-plugin-airtable
 
-go 1.24.0
+go 1.26
 
 require (
 	github.com/iancoleman/strcase v0.3.0

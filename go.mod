@@ -6,6 +6,7 @@ require (
 	github.com/iancoleman/strcase v0.3.0
 	github.com/mehanizm/airtable v0.3.4
 	github.com/turbot/steampipe-plugin-sdk/v5 v5.14.1
+	github.com/turbot/steampipe-plugin-sdk/v6 v6.0.0
 )
 
 require (

@@ -7,8 +7,8 @@ import (
 
 	"github.com/iancoleman/strcase"
 	"github.com/mehanizm/airtable"
-	"github.com/turbot/steampipe-plugin-sdk/v5/connection"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/connection"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 func rawConnect(ctx context.Context, connection *plugin.Connection, connectioncache *connection.ConnectionCache) (*airtable.Client, error) {

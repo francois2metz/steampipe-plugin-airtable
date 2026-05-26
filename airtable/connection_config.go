@@ -1,8 +1,8 @@
 package airtable
 
 import (
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/schema"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin/schema"
 )
 
 type airtableConfig struct {
@@ -20,9 +20,9 @@ func ConfigInstance() interface{} {
 }
 
 func GetConfig(connection *plugin.Connection) airtableConfig {
-	if connection == nil || connection.Config == nil {
+	if connection == nil || connection.GetConfig() == nil {
 		return airtableConfig{}
 	}
-	config, _ := connection.Config.(airtableConfig)
+	config, _ := connection.GetConfig().(airtableConfig)
 	return config
 }

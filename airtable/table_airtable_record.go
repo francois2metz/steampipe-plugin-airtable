@@ -41,14 +41,18 @@ func tableAirtableRecord(ctx context.Context, base *airtable.Base, table *airtab
 		Name:        toTableName(base.ID, table.Name),
 		Description: "The " + table.Name + " table from the base " + base.Name + ".",
 		List: &plugin.ListConfig{
-			Hydrate:           listRecord(base.ID, table),
-			KeyColumns:        plugin.OptionalColumns([]string{"filter_formula"}),
-			ShouldIgnoreError: isNotFoundError,
+			Hydrate:    listRecord(base.ID, table),
+			KeyColumns: plugin.OptionalColumns([]string{"filter_formula"}),
+			IgnoreConfig: &plugin.IgnoreConfig{
+				ShouldIgnoreErrorFunc: isNotFoundError,
+			},
 		},
 		Get: &plugin.GetConfig{
-			KeyColumns:        plugin.SingleColumn("id"),
-			Hydrate:           getRecord(base.ID, table),
-			ShouldIgnoreError: isNotFoundError,
+			KeyColumns: plugin.SingleColumn("id"),
+			Hydrate:    getRecord(base.ID, table),
+			IgnoreConfig: &plugin.IgnoreConfig{
+				ShouldIgnoreErrorFunc: isNotFoundError,
+			},
 		},
 		Columns: columns,
 	}
